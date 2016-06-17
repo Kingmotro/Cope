@@ -19,6 +19,12 @@
 
 package de.jackwhite20.cope;
 
+import de.jackwhite20.cope.exception.CopeException;
+
+import java.io.File;
+import java.net.URI;
+import java.nio.file.Path;
+
 /**
  * Created by JackWhite20 on 17.06.2016.
  */
@@ -27,5 +33,55 @@ public final class Cope {
     private Cope() {
 
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Creates a new cope config from the given file name or file path.
+     *
+     * @param file The file name or path.
+     * @return A new cope config.
+     * @throws CopeException If something went wrong during loading or parsing.
+     */
+    public static CopeConfig from(String file) throws CopeException {
+
+        return from(new File(file));
+    }
+
+    /**
+     * Creates a new cope config from the given path.
+     *
+     * @param path The path.
+     * @return A new cope config.
+     * @throws CopeException If something went wrong during loading or parsing.
+     */
+    public static CopeConfig from(Path path) throws CopeException {
+
+        return from(path.toFile());
+    }
+
+    /**
+     * Creates a new cope config from the given uri.
+     *
+     * Useful if you want to load a file in the resources.
+     *
+     * @param uri The uri.
+     * @return A new cope config.
+     * @throws CopeException If something went wrong during loading or parsing.
+     */
+    public static CopeConfig from(URI uri) throws CopeException {
+
+        return from(new File(uri));
+    }
+
+    /**
+     * Creates a new cope config from the given file.
+     *
+     * @param file The file.
+     * @return A new cope config.
+     * @throws CopeException If something went wrong during loading or parsing.
+     */
+    public static CopeConfig from(File file) throws CopeException {
+
+        return new CopeConfig(file);
     }
 }
