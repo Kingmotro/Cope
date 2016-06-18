@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Cope by JackWhite20</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Cope</h1>
+      <h2 class="project-tagline">Cope is a simple and easy config format, parser and API for Java.</h2>
+      <a href="https://github.com/JackWhite20/Cope" class="btn">View on GitHub</a>
+      <a href="https://github.com/JackWhite20/Cope/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/JackWhite20/Cope/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="cope" class="anchor" href="#cope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cope</h1>
+
+<p>Cope is a simple and easy config format, parser and API for Java.</p>
+
+<h1>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h1>
+
+<ul>
+<li>readable</li>
+<li>comments</li>
+<li>easy to use</li>
+<li>lightweight</li>
+<li>fast</li>
+</ul>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
+
+<ul>
+<li>Install <a href="http://maven.apache.org/download.cgi">Maven 3</a>
+</li>
+<li>Clone/Download this repo</li>
+<li>Install it with: <code>mvn clean install</code>
+</li>
+</ul>
+
+<p><strong>Maven dependency</strong></p>
+
+<p><em>Cope:</em></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
+    &lt;<span class="pl-ent">groupId</span>&gt;de.jackwhite20&lt;/<span class="pl-ent">groupId</span>&gt;
+    &lt;<span class="pl-ent">artifactId</span>&gt;cope&lt;/<span class="pl-ent">artifactId</span>&gt;
+    &lt;<span class="pl-ent">version</span>&gt;1.0.0-SNAPSHOT&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+
+<h1>
+<a id="config-format" class="anchor" href="#config-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Config format</h1>
+
+<p><em>Config file config.cop:</em></p>
+
+<div class="highlight highlight-source-yaml"><pre><span class="pl-c"># Comment support</span>
+<span class="pl-s"><span class="pl-ent">global:</span></span>
+    max<span class="pl-s">-<span class="pl-s">con 200</span></span>
+
+<span class="pl-s"><span class="pl-ent">timeout:</span></span>
+    connect 5000
+    client 50000
+    server 50000
+
+<span class="pl-s"><span class="pl-ent">server:</span></span>
+    bind 0.0.0.0 80</pre></div>
+
+<h1>
+<a id="cope-api-usage" class="anchor" href="#cope-api-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cope API usage</h1>
+
+<p>If you want to use the javadoc you can browse it <a href="https://jackwhite20.github.io/Cope/doc/">here</a>.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">try</span> {
+    <span class="pl-c">// Create a config from a config file</span>
+    <span class="pl-smi">CopeConfig</span> cope <span class="pl-k">=</span> <span class="pl-smi">Cope</span><span class="pl-k">.</span>from(<span class="pl-s"><span class="pl-pds">"</span>config.cop<span class="pl-pds">"</span></span>);
+
+    <span class="pl-c">// Check if the header and the key is available</span>
+    <span class="pl-k">if</span> (cope<span class="pl-k">.</span>hasHeaderAndKey(<span class="pl-s"><span class="pl-pds">"</span>global<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>max-con<span class="pl-pds">"</span></span>)) {
+        <span class="pl-smi">Key</span> maxCon <span class="pl-k">=</span> cope<span class="pl-k">.</span>getHeader(<span class="pl-s"><span class="pl-pds">"</span>global<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>getKey(<span class="pl-s"><span class="pl-pds">"</span>max-con<span class="pl-pds">"</span></span>);
+        <span class="pl-k">if</span> (maxCon<span class="pl-k">.</span>hasValues()) {
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Max connections: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> maxCon<span class="pl-k">.</span>getValue(<span class="pl-c1">0</span>)<span class="pl-k">.</span>asInt());
+        }
+    }
+
+    <span class="pl-c">// Check if the header exists</span>
+    <span class="pl-k">if</span> (cope<span class="pl-k">.</span>hasHeader(<span class="pl-s"><span class="pl-pds">"</span>timeout<span class="pl-pds">"</span></span>)) {
+        <span class="pl-smi">Header</span> timeoutHeader <span class="pl-k">=</span> cope<span class="pl-k">.</span>getHeader(<span class="pl-s"><span class="pl-pds">"</span>timeout<span class="pl-pds">"</span></span>);
+
+        <span class="pl-smi">Key</span> connectKey <span class="pl-k">=</span> timeoutHeader<span class="pl-k">.</span>getKey(<span class="pl-s"><span class="pl-pds">"</span>connect<span class="pl-pds">"</span></span>);
+        <span class="pl-k">if</span> (connectKey<span class="pl-k">.</span>hasValues()) {
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Timeout connect: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> connectKey<span class="pl-k">.</span>getValue(<span class="pl-c1">0</span>));
+        }
+
+        <span class="pl-smi">Key</span> clientKey <span class="pl-k">=</span> timeoutHeader<span class="pl-k">.</span>getKey(<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span>);
+        <span class="pl-k">if</span> (clientKey<span class="pl-k">.</span>hasValues()) {
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Timeout client: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> clientKey<span class="pl-k">.</span>getValue(<span class="pl-c1">0</span>));
+        }
+
+        <span class="pl-smi">Key</span> serverKey <span class="pl-k">=</span> timeoutHeader<span class="pl-k">.</span>getKey(<span class="pl-s"><span class="pl-pds">"</span>server<span class="pl-pds">"</span></span>);
+        <span class="pl-k">if</span> (serverKey<span class="pl-k">.</span>hasValues()) {
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Timeout server: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> serverKey<span class="pl-k">.</span>getValue(<span class="pl-c1">0</span>));
+        }
+    }
+
+    <span class="pl-c">// Check if the header and the key is available</span>
+    <span class="pl-k">if</span> (cope<span class="pl-k">.</span>hasHeaderAndKey(<span class="pl-s"><span class="pl-pds">"</span>server<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bind<span class="pl-pds">"</span></span>)) {
+        <span class="pl-smi">Key</span> bindKey <span class="pl-k">=</span> cope<span class="pl-k">.</span>getHeader(<span class="pl-s"><span class="pl-pds">"</span>server<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>getKey(<span class="pl-s"><span class="pl-pds">"</span>bind<span class="pl-pds">"</span></span>);
+        <span class="pl-c">// Check if the key has values</span>
+        <span class="pl-k">if</span> (bindKey<span class="pl-k">.</span>hasValues()) {
+            <span class="pl-smi">String</span> host <span class="pl-k">=</span> bindKey<span class="pl-k">.</span>getValue(<span class="pl-c1">0</span>)<span class="pl-k">.</span>asString();
+            <span class="pl-k">int</span> port <span class="pl-k">=</span> bindKey<span class="pl-k">.</span>getValue(<span class="pl-c1">1</span>)<span class="pl-k">.</span>asInt();
+
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Host: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> host);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Port: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> port);
+        }
+    }
+} <span class="pl-k">catch</span> (<span class="pl-smi">CopeException</span> e) {
+    e<span class="pl-k">.</span>printStackTrace();
+}</pre></div>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h3>
+
+<p>Licensed under the GNU General Public License, Version 3.0.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/JackWhite20/Cope">Cope</a> is maintained by <a href="https://github.com/JackWhite20">JackWhite20</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
