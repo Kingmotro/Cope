@@ -1,6 +1,8 @@
 # Cope
 Cope is a simple and easy config format, parser and API for Java.
 
+**You can view the junit code coverage [here](https://jackwhite20.github.io/Cope/coverage).**
+
 # Features
 
 - readable
@@ -46,7 +48,7 @@ server:
 
 # Cope API usage
 
-If you want to use the javadoc you can browse it [here](https://jackwhite20.github.io/Cope/doc/).
+**If you want to use the javadoc you can browse it [here](https://jackwhite20.github.io/Cope/doc/).**
 
 ```java
 try {
