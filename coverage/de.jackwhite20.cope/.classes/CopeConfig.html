@@ -1,0 +1,237 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CopeConfig</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.jackwhite20.cope</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CopeConfig (de.jackwhite20.cope)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CopeConfig</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (39/ 39)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * Copyright (c) 2016 &quot;JackWhite20&quot;
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * This file is part of Cope.
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; * Cope is free software: you can redistribute it and/or modify
+<i>7</i>&nbsp; * it under the terms of the GNU General Public License as published by
+<i>8</i>&nbsp; * the Free Software Foundation, either version 3 of the License, or
+<i>9</i>&nbsp; * (at your option) any later version.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * This program is distributed in the hope that it will be useful,
+<i>12</i>&nbsp; * but WITHOUT ANY WARRANTY; without even the implied warranty of
+<i>13</i>&nbsp; * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+<i>14</i>&nbsp; * GNU General Public License for more details.
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; * You should have received a copy of the GNU General Public License
+<i>17</i>&nbsp; * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;package de.jackwhite20.cope;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;import de.jackwhite20.cope.config.Header;
+<i>23</i>&nbsp;import de.jackwhite20.cope.config.Key;
+<i>24</i>&nbsp;import de.jackwhite20.cope.config.Value;
+<i>25</i>&nbsp;import de.jackwhite20.cope.exception.CopeEmptyConfigException;
+<i>26</i>&nbsp;import de.jackwhite20.cope.exception.CopeException;
+<i>27</i>&nbsp;import de.jackwhite20.cope.exception.CopeInvalidConfigException;
+<i>28</i>&nbsp;import de.jackwhite20.cope.exception.CopeLoadConfigException;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;import java.io.BufferedReader;
+<i>31</i>&nbsp;import java.io.File;
+<i>32</i>&nbsp;import java.io.FileReader;
+<i>33</i>&nbsp;import java.io.IOException;
+<i>34</i>&nbsp;import java.util.ArrayList;
+<i>35</i>&nbsp;import java.util.HashMap;
+<i>36</i>&nbsp;import java.util.List;
+<i>37</i>&nbsp;import java.util.Map;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;/**
+<i>40</i>&nbsp; * Created by JackWhite20 on 18.06.2016.
+<i>41</i>&nbsp; */
+<i>42</i>&nbsp;public class CopeConfig {
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    /**
+<i>45</i>&nbsp;     * The config file line by line as a list.
+<i>46</i>&nbsp;     */
+<b class="fc"><i>47</i>&nbsp;    private List&lt;String&gt; config = new ArrayList&lt;&gt;();</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * All headers from the config.
+<i>51</i>&nbsp;     */
+<b class="fc"><i>52</i>&nbsp;    private Map&lt;String, Header&gt; headers = new HashMap&lt;&gt;();</b>
+<i>53</i>&nbsp;
+<b class="fc"><i>54</i>&nbsp;    protected CopeConfig(File file) throws CopeException {</b>
+<i>55</i>&nbsp;
+<b class="fc"><i>56</i>&nbsp;        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {</b>
+<i>57</i>&nbsp;            String line;
+<b class="fc"><i>58</i>&nbsp;            while ((line = bufferedReader.readLine()) != null) {</b>
+<b class="fc"><i>59</i>&nbsp;                if (!line.isEmpty() &amp;&amp; !line.startsWith(&quot;#&quot;)) {</b>
+<b class="fc"><i>60</i>&nbsp;                    this.config.add(line.trim());</b>
+<i>61</i>&nbsp;                }
+<i>62</i>&nbsp;            }
+<b class="fc"><i>63</i>&nbsp;        } catch (IOException e) {</b>
+<b class="fc"><i>64</i>&nbsp;            throw new CopeLoadConfigException(&quot;could not load config file &#39;&quot; + file.getName() + &quot;&#39;&quot;);</b>
+<b class="fc"><i>65</i>&nbsp;        }</b>
+<i>66</i>&nbsp;
+<b class="fc"><i>67</i>&nbsp;        if (this.config.size() == 0) {</b>
+<b class="fc"><i>68</i>&nbsp;            throw new CopeEmptyConfigException(&quot;config file &quot; + file.getName() + &quot; is empty&quot;);</b>
+<i>69</i>&nbsp;        }
+<i>70</i>&nbsp;
+<b class="fc"><i>71</i>&nbsp;        parse();</b>
+<b class="fc"><i>72</i>&nbsp;    }</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    /**
+<i>75</i>&nbsp;     * Parses the config lines.
+<i>76</i>&nbsp;     *
+<i>77</i>&nbsp;     * @throws CopeException If something went wrong during the parsing.
+<i>78</i>&nbsp;     */
+<i>79</i>&nbsp;    private void parse() throws CopeException {
+<i>80</i>&nbsp;
+<b class="fc"><i>81</i>&nbsp;        Header currentHeader = null;</b>
+<i>82</i>&nbsp;
+<b class="fc"><i>83</i>&nbsp;        for (int i = 0; i &lt; config.size(); i++) {</b>
+<b class="fc"><i>84</i>&nbsp;            String line = config.get(i);</b>
+<i>85</i>&nbsp;
+<b class="fc"><i>86</i>&nbsp;            if (line.endsWith(&quot;:&quot;)) {</b>
+<b class="fc"><i>87</i>&nbsp;                if (currentHeader != null) {</b>
+<b class="fc"><i>88</i>&nbsp;                    headers.put(currentHeader.getName(), currentHeader);</b>
+<i>89</i>&nbsp;                }
+<i>90</i>&nbsp;
+<b class="fc"><i>91</i>&nbsp;                currentHeader = new Header(line.substring(0, line.length() - 1));</b>
+<i>92</i>&nbsp;            } else {
+<b class="fc"><i>93</i>&nbsp;                String[] info = line.split(&quot; &quot;);</b>
+<b class="fc"><i>94</i>&nbsp;                if (info.length &gt; 0) {</b>
+<b class="fc"><i>95</i>&nbsp;                    String key = info[0];</b>
+<b class="fc"><i>96</i>&nbsp;                    String[] options = new String[info.length - 1];</b>
+<b class="fc"><i>97</i>&nbsp;                    System.arraycopy(info, 1, options, 0, options.length);</b>
+<i>98</i>&nbsp;
+<b class="fc"><i>99</i>&nbsp;                    Key keyData = new Key(key);</b>
+<b class="fc"><i>100</i>&nbsp;                    for (String option : options) {</b>
+<b class="fc"><i>101</i>&nbsp;                        keyData.addValue(new Value(option));</b>
+<i>102</i>&nbsp;                    }
+<i>103</i>&nbsp;
+<b class="fc"><i>104</i>&nbsp;                    if (currentHeader != null) {</b>
+<b class="fc"><i>105</i>&nbsp;                        currentHeader.addKey(keyData);</b>
+<i>106</i>&nbsp;                    } else {
+<b class="fc"><i>107</i>&nbsp;                        throw new CopeInvalidConfigException(&quot;at least one header at the top is needed&quot;);</b>
+<i>108</i>&nbsp;                    }
+<i>109</i>&nbsp;                }
+<i>110</i>&nbsp;            }
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;            // Add the last header
+<b class="fc"><i>113</i>&nbsp;            if (i == config.size() - 1) {</b>
+<b class="fc"><i>114</i>&nbsp;                if (currentHeader != null) {</b>
+<b class="fc"><i>115</i>&nbsp;                    headers.put(currentHeader.getName(), currentHeader);</b>
+<i>116</i>&nbsp;                }
+<i>117</i>&nbsp;            }
+<i>118</i>&nbsp;        }
+<b class="fc"><i>119</i>&nbsp;    }</b>
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;    /**
+<i>122</i>&nbsp;     * Returns whether the given header exists or not.
+<i>123</i>&nbsp;     *
+<i>124</i>&nbsp;     * @param header The header to check.
+<i>125</i>&nbsp;     * @return True or false whether the given header exists or not.
+<i>126</i>&nbsp;     */
+<i>127</i>&nbsp;    public boolean hasHeader(String header) {
+<i>128</i>&nbsp;
+<b class="fc"><i>129</i>&nbsp;        return headers.containsKey(header);</b>
+<i>130</i>&nbsp;    }
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;    /**
+<i>133</i>&nbsp;     * Returns whether the given header and key exists or not.
+<i>134</i>&nbsp;     *
+<i>135</i>&nbsp;     * @param header The header to check.
+<i>136</i>&nbsp;     * @param key    The key to check.
+<i>137</i>&nbsp;     * @return True or false whether the given header and key exists or not.
+<i>138</i>&nbsp;     */
+<i>139</i>&nbsp;    public boolean hasHeaderAndKey(String header, String key) {
+<i>140</i>&nbsp;
+<b class="fc"><i>141</i>&nbsp;        return headers.containsKey(header) &amp;&amp; headers.get(header).hasKey(key);</b>
+<i>142</i>&nbsp;    }
+<i>143</i>&nbsp;
+<i>144</i>&nbsp;    /**
+<i>145</i>&nbsp;     * Returns the header if it exists otherwise it returns null.
+<i>146</i>&nbsp;     *
+<i>147</i>&nbsp;     * @param header The header name.
+<i>148</i>&nbsp;     * @return The header object instance.
+<i>149</i>&nbsp;     */
+<i>150</i>&nbsp;    public Header getHeader(String header) {
+<i>151</i>&nbsp;
+<b class="fc"><i>152</i>&nbsp;        return headers.get(header);</b>
+<i>153</i>&nbsp;    }
+<i>154</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-06-18 02:33</div>
+</div>
+</body>
+</html>

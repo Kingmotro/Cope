@@ -1,0 +1,170 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Value</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.jackwhite20.cope.config</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Value (de.jackwhite20.cope.config)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Value</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * Copyright (c) 2016 &quot;JackWhite20&quot;
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * This file is part of Cope.
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; * Cope is free software: you can redistribute it and/or modify
+<i>7</i>&nbsp; * it under the terms of the GNU General Public License as published by
+<i>8</i>&nbsp; * the Free Software Foundation, either version 3 of the License, or
+<i>9</i>&nbsp; * (at your option) any later version.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * This program is distributed in the hope that it will be useful,
+<i>12</i>&nbsp; * but WITHOUT ANY WARRANTY; without even the implied warranty of
+<i>13</i>&nbsp; * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+<i>14</i>&nbsp; * GNU General Public License for more details.
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; * You should have received a copy of the GNU General Public License
+<i>17</i>&nbsp; * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;package de.jackwhite20.cope.config;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;/**
+<i>23</i>&nbsp; * Created by JackWhite20 on 18.06.2016.
+<i>24</i>&nbsp; */
+<i>25</i>&nbsp;public class Value {
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * The value of the value.
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    private String value;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * Creates a new value with the given value.
+<i>34</i>&nbsp;     *
+<i>35</i>&nbsp;     * @param value The value.
+<i>36</i>&nbsp;     */
+<b class="fc"><i>37</i>&nbsp;    public Value(String value) {</b>
+<i>38</i>&nbsp;
+<b class="fc"><i>39</i>&nbsp;        this.value = value;</b>
+<b class="fc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * Returns the value as string.
+<i>44</i>&nbsp;     *
+<i>45</i>&nbsp;     * @return The value as string.
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    public String asString() {
+<i>48</i>&nbsp;
+<b class="fc"><i>49</i>&nbsp;        return value;</b>
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * Returns the value as int.
+<i>54</i>&nbsp;     *
+<i>55</i>&nbsp;     * @return The value as int.
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    public int asInt() {
+<i>58</i>&nbsp;
+<b class="fc"><i>59</i>&nbsp;        return Integer.parseInt(value);</b>
+<i>60</i>&nbsp;    }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * Returns the value as long.
+<i>64</i>&nbsp;     *
+<i>65</i>&nbsp;     * @return The value as long.
+<i>66</i>&nbsp;     */
+<i>67</i>&nbsp;    public long asLong() {
+<i>68</i>&nbsp;
+<b class="fc"><i>69</i>&nbsp;        return Long.parseLong(value);</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * Returns the value as double.
+<i>74</i>&nbsp;     *
+<i>75</i>&nbsp;     * @return The value as double.
+<i>76</i>&nbsp;     */
+<i>77</i>&nbsp;    public double asDouble() {
+<i>78</i>&nbsp;
+<b class="fc"><i>79</i>&nbsp;        return Double.parseDouble(value);</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    @Override
+<i>83</i>&nbsp;    public String toString() {
+<i>84</i>&nbsp;
+<b class="fc"><i>85</i>&nbsp;        return value;</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-06-18 02:33</div>
+</div>
+</body>
+</html>
