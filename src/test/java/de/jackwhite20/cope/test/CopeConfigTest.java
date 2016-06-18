@@ -78,6 +78,8 @@ public class CopeConfigTest {
         assertNotNull(bindKey);
 
         assertEquals(2, keyKey.getValues().size());
+        assertTrue(keyKey.hasValues());
+        assertTrue(bindKey.hasValues());
 
         assertEquals("value1", keyKey.getValue(0).asString());
         assertEquals("value2", keyKey.getValue(1).asString());

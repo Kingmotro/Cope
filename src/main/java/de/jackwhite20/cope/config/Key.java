@@ -80,6 +80,16 @@ public class Key {
     }
 
     /**
+     * Returns whether this key has values.
+     *
+     * @return True whether this key has values.
+     */
+    public boolean hasValues() {
+
+        return !values.isEmpty();
+    }
+
+    /**
      * Returns the values as an unmodifiable list.
      *
      * @return The values as an unmodifiable list.
