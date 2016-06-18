@@ -51,6 +51,12 @@ public class CopeConfig {
      */
     private Map<String, Header> headers = new HashMap<>();
 
+    /**
+     * Creates a new cope config from the given file.
+     *
+     * @param file The config file.
+     * @throws CopeException If something went wrong.
+     */
     protected CopeConfig(File file) throws CopeException {
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {

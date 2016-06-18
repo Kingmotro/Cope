@@ -24,6 +24,11 @@ package de.jackwhite20.cope.exception;
  */
 public class CopeException extends Exception {
 
+    /**
+     * Creates a new general cope exception with the given message.
+     *
+     * @param message The message.
+     */
     public CopeException(String message) {
 
         super(message);

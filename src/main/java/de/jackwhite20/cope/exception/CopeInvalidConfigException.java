@@ -24,6 +24,11 @@ package de.jackwhite20.cope.exception;
  */
 public class CopeInvalidConfigException extends CopeException {
 
+    /**
+     * Creates a new cope invalid config exception with the given message.
+     *
+     * @param message The message.
+     */
     public CopeInvalidConfigException(String message) {
 
         super(message);

@@ -24,6 +24,11 @@ package de.jackwhite20.cope.exception;
  */
 public class CopeEmptyConfigException extends CopeException {
 
+    /**
+     * Creates a new cope empty config exception with the given message.
+     *
+     * @param message The message.
+     */
     public CopeEmptyConfigException(String message) {
 
         super(message);
