@@ -7,26 +7,10 @@ Cope is a simple and easy config format, parser and API for Java.
 
 - readable
 - comments
+- defaults
 - easy to use
 - lightweight
 - fast
-
-# Installation
-
-- Install [Maven 3](http://maven.apache.org/download.cgi)
-- Clone/Download this repo
-- Install it with: ```mvn clean install```
-
-**Maven dependency**
-
-_Cope:_
-```xml
-<dependency>
-    <groupId>de.jackwhite20</groupId>
-    <artifactId>cope</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-</dependency>
-```
 
 # Config format
 
@@ -35,7 +19,7 @@ _Config file config.cop:_
 ```yaml
 # Comment support
 global:
-    max-con 200
+    connections 200
 
 timeout:
 	connect 5000
@@ -46,14 +30,16 @@ server:
     bind 0.0.0.0 80
 ```
 
-# Cope API usage
+# Examples
 
 **If you want to use the javadoc you can browse it [here](https://jackwhite20.github.io/Cope/doc/).**
+
+_General example:_
 
 ```java
 try {
 	// Create a config from a config file
-	CopeConfig cope = Cope.from("config.cop");
+	CopeConfig cope = Cope.from("config.cop").build();
 
 	// Check if the header and the key is available
 	if (cope.hasHeaderAndKey("global", "max-con")) {
@@ -99,6 +85,59 @@ try {
 	e.printStackTrace();
 }
 ```
+
+_Defaults:_
+
+Defaults are working all the same. Of course you can set multiple key defaults in one header
+if you call the "def" method multiple times with the same header but a different key.
+
+```yaml
+global:
+    connections 200
+
+# You want to have a default for the missing "server" header
+```
+
+```java
+try {
+    // Create the cope and add the default header
+	CopeConfig cope = Cope.from("config.cop")
+			.def(new Header("server"), new Key("bind"), new Value("0.0.0.0"), new Value("8080"))
+			//.def(new Header("server"), new Key("another-key"), new Value("value"))
+			.build();
+
+	// No need to check if the header or key exists
+	// because we have the default values
+	Key bindKey = cope.getHeader("server").getKey("bind");
+	String host = bindKey.getValue(0).asString();
+	int port = bindKey.getValue(1).asInt();
+
+	System.out.println("Host: " + host);
+	System.out.println("Port: " + port);
+} catch (CopeException e) {
+	e.printStackTrace();
+}
+```
+
+# Installation
+
+_Maven:_
+
+- Install [Maven 3](http://maven.apache.org/download.cgi)
+- Clone/Download this repo
+- Install it with: ```mvn clean install```
+
+```xml
+<dependency>
+    <groupId>de.jackwhite20</groupId>
+    <artifactId>cope</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+_Jar library:_
+
+Simply download the jar from a release and include it in your project.
 
 ### License
 

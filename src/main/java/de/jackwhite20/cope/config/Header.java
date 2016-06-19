@@ -89,9 +89,9 @@ public class Header {
     }
 
     /**
-     * Returns the keys as a list.
+     * Returns the keys as an unmodifiable list.
      *
-     * @return The keys as a list.
+     * @return The keys as an unmodifiable list.
      */
     public List<Key> getKeys() {
 

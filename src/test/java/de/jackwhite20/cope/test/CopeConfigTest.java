@@ -23,6 +23,7 @@ import de.jackwhite20.cope.Cope;
 import de.jackwhite20.cope.CopeConfig;
 import de.jackwhite20.cope.config.Header;
 import de.jackwhite20.cope.config.Key;
+import de.jackwhite20.cope.config.Value;
 import de.jackwhite20.cope.exception.CopeEmptyConfigException;
 import de.jackwhite20.cope.exception.CopeException;
 import de.jackwhite20.cope.exception.CopeLoadConfigException;
@@ -43,13 +44,13 @@ public class CopeConfigTest {
     @Test(expected = CopeLoadConfigException.class)
     public void testUnableToLoadConfig() throws Exception {
 
-        Cope.from("stuff");
+        Cope.from("stuff").build();
     }
 
     @Test
     public void testCopeConfig() throws URISyntaxException, CopeException {
 
-        CopeConfig copeConfig = Cope.from(new File(ClassLoader.getSystemResource("example.cp").toURI()).toPath());
+        CopeConfig copeConfig = Cope.from(new File(ClassLoader.getSystemResource("example.cp").toURI()).toPath()).build();
         Header testHeader;
         Header serverHeader;
         Key keyKey;
@@ -94,22 +95,92 @@ public class CopeConfigTest {
     }
 
     @Test
+    public void testCopeBuilderNoHeader() throws Exception {
+
+        CopeConfig copeConfig = Cope.from(new File(ClassLoader.getSystemResource("example-builder.cp").toURI()))
+                .def(new Header("server"), new Key("bind"), new Value("0.0.0.0"), new Value("80"))
+                .build();
+
+        assertTrue(copeConfig.hasHeaderAndKey("server", "bind"));
+        assertTrue(copeConfig.getHeader("server").getKey("bind").hasValues());
+        assertEquals("0.0.0.0", copeConfig.getHeader("server").getKey("bind").getValue(0).asString());
+        assertEquals(80, copeConfig.getHeader("server").getKey("bind").getValue(1).asInt());
+    }
+
+    @Test
+    public void testCopeBuilderNoValues() throws Exception {
+
+        CopeConfig copeConfig = Cope.from(new File(ClassLoader.getSystemResource("example-builder.cp").toURI()))
+                .def(new Header("test"), new Key("key"), new Value("value1"), new Value("value2"))
+                .build();
+
+        assertTrue(copeConfig.hasHeaderAndKey("test", "key"));
+        assertTrue(copeConfig.getHeader("test").getKey("key").hasValues());
+        assertEquals("value1", copeConfig.getHeader("test").getKey("key").getValue(0).asString());
+        assertEquals("value2", copeConfig.getHeader("test").getKey("key").getValue(1).asString());
+    }
+
+    @Test
+    public void testCopeBuilderNoKey() throws Exception {
+
+        CopeConfig copeConfig = Cope.from(new File(ClassLoader.getSystemResource("example-builder.cp").toURI()))
+                .def(new Header("no-key"), new Key("key"), new Value("value1"), new Value("value2"))
+                .build();
+
+        assertTrue(copeConfig.hasHeader("no-key"));
+        assertTrue(copeConfig.getHeader("no-key").getKey("key").hasValues());
+        assertEquals("value1", copeConfig.getHeader("no-key").getKey("key").getValue(0).asString());
+        assertEquals("value2", copeConfig.getHeader("no-key").getKey("key").getValue(1).asString());
+    }
+
+    @Test
+    public void testCopeBuilderMultipleKeys() throws Exception {
+
+        CopeConfig copeConfig = Cope.from(new File(ClassLoader.getSystemResource("example-builder.cp").toURI()))
+                .def(new Header("no-key"), new Key("key"), new Value("value1"), new Value("value2"))
+                .def(new Header("no-key"), new Key("key2"), new Value("value1"), new Value("value2"))
+                .build();
+
+        assertTrue(copeConfig.hasHeader("no-key"));
+        assertTrue(copeConfig.getHeader("no-key").getKey("key").hasValues());
+        assertTrue(copeConfig.getHeader("no-key").getKey("key2").hasValues());
+        assertEquals("value1", copeConfig.getHeader("no-key").getKey("key").getValue(0).asString());
+        assertEquals("value2", copeConfig.getHeader("no-key").getKey("key").getValue(1).asString());
+        assertEquals("value1", copeConfig.getHeader("no-key").getKey("key2").getValue(0).asString());
+        assertEquals("value2", copeConfig.getHeader("no-key").getKey("key2").getValue(1).asString());
+    }
+
+    @Test
+    public void testCopeBuilderKeyNoValues() throws Exception {
+
+        CopeConfig copeConfig = Cope.from(new File(ClassLoader.getSystemResource("example-builder.cp").toURI()))
+                .def(new Header("no-key"), new Key("key"))
+                .def(new Header("no-key"), new Key("key"), new Value("value1"), new Value("value2"))
+                .build();
+
+        assertTrue(copeConfig.hasHeader("no-key"));
+        assertTrue(copeConfig.getHeader("no-key").getKey("key").hasValues());
+        assertEquals("value1", copeConfig.getHeader("no-key").getKey("key").getValue(0).asString());
+        assertEquals("value2", copeConfig.getHeader("no-key").getKey("key").getValue(1).asString());
+    }
+
+    @Test
     public void testWrongHeader() throws Exception {
 
-        CopeConfig copeConfig = Cope.from(new File(ClassLoader.getSystemResource("example.cp").toURI()));
+        CopeConfig copeConfig = Cope.from(new File(ClassLoader.getSystemResource("example.cp").toURI())).build();
         assertNull(copeConfig.getHeader("random"));
     }
 
     @Test(expected = CopeEmptyConfigException.class)
     public void testEmptyConfig() throws Exception {
 
-        Cope.from(ClassLoader.getSystemResource("example-empty.cp").toURI());
+        Cope.from(ClassLoader.getSystemResource("example-empty.cp").toURI()).build();
     }
 
     @Test(expected = CopeException.class)
     public void testWrongConfigFile() throws Exception {
 
-        Cope.from(ClassLoader.getSystemResource("example-wrong.cp").toURI());
+        Cope.from(ClassLoader.getSystemResource("example-wrong.cp").toURI()).build();
     }
 
     @Test(expected = InvocationTargetException.class)

@@ -78,6 +78,41 @@ public class CopeConfig {
     }
 
     /**
+     * Creates a new cope config from the given file and builder instance.
+     * @param file The file.
+     * @param copeBuilder The builder instance.
+     * @throws CopeException If something went wrong.
+     */
+    protected CopeConfig(File file, Cope.CopeBuilder copeBuilder) throws CopeException {
+
+        this(file);
+
+        // Check if there are default values
+        if (copeBuilder.getHeaders().isEmpty()) {
+            return;
+        }
+
+        // Sets possible default values
+        for (Header builderHeader : copeBuilder.getHeaders()) {
+            Header header = headers.get(builderHeader.getName());
+            if (header == null) {
+                headers.put(builderHeader.getName(), builderHeader);
+            } else {
+                for (Key builderKey : builderHeader.getKeys()) {
+                    if (!header.hasKey(builderKey.getName())) {
+                        header.addKey(builderKey);
+                    } else {
+                        Key key = header.getKey(builderKey.getName());
+                        if (!key.hasValues()) {
+                            builderKey.getValues().forEach(key::addValue);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Parses the config lines.
      *
      * @throws CopeException If something went wrong during the parsing.
