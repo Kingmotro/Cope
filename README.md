@@ -137,7 +137,7 @@ _Maven:_
 
 _Jar library:_
 
-Simply download the jar from a release and include it in your project.
+Simply download the jar from a [release](https://github.com/JackWhite20/Cope/releases) and include it in your project.
 
 ### License
 
