@@ -55,6 +55,7 @@ public class CopeConfigTest {
         Header serverHeader;
         Key keyKey;
         Key bindKey;
+        Key booleanKey;
 
         assertTrue(copeConfig.hasHeader("test"));
         assertTrue(copeConfig.hasHeader("server"));
@@ -65,15 +66,15 @@ public class CopeConfigTest {
         assertNotNull(testHeader);
         assertNotNull(serverHeader);
 
-        //System.out.println(copeConfig.getHeader("test").getKeys().get(0).getValue(0).asString());
         assertTrue(copeConfig.hasHeaderAndKey("test", "key"));
         assertTrue(copeConfig.hasHeaderAndKey("server", "bind"));
 
-        assertEquals(1, testHeader.getKeys().size());
+        assertEquals(2, testHeader.getKeys().size());
         assertEquals(1, serverHeader.getKeys().size());
 
         keyKey = testHeader.getKey("key");
         bindKey = serverHeader.getKey("bind");
+        booleanKey = testHeader.getKey("debug");
 
         assertNotNull(keyKey);
         assertNotNull(bindKey);
@@ -92,6 +93,9 @@ public class CopeConfigTest {
 
         assertEquals(80D, bindKey.getValue(1).asDouble(), 0D);
         assertEquals(80, bindKey.getValue(1).asLong());
+        assertEquals(80F, bindKey.getValue(1).asFloat(), 0F);
+
+        assertEquals(true, booleanKey.getValue(0).asBoolean());
     }
 
     @Test

@@ -40,9 +40,9 @@ public class Value {
     }
 
     /**
-     * Returns the value as string.
+     * Returns the value as a string.
      *
-     * @return The value as string.
+     * @return The value as a string.
      */
     public String asString() {
 
@@ -50,9 +50,9 @@ public class Value {
     }
 
     /**
-     * Returns the value as int.
+     * Returns the value as an int.
      *
-     * @return The value as int.
+     * @return The value as an int.
      */
     public int asInt() {
 
@@ -60,9 +60,9 @@ public class Value {
     }
 
     /**
-     * Returns the value as long.
+     * Returns the value as a long.
      *
-     * @return The value as long.
+     * @return The value as a long.
      */
     public long asLong() {
 
@@ -70,13 +70,33 @@ public class Value {
     }
 
     /**
-     * Returns the value as double.
+     * Returns the value as a double.
      *
-     * @return The value as double.
+     * @return The value as a double.
      */
     public double asDouble() {
 
         return Double.parseDouble(value);
+    }
+
+    /**
+     * Returns the value as a float.
+     *
+     * @return The value as a float.
+     */
+    public double asFloat() {
+
+        return Float.parseFloat(value);
+    }
+
+    /**
+     * Returns the value as a boolean.
+     *
+     * @return The value as a boolean.
+     */
+    public boolean asBoolean() {
+
+        return Boolean.parseBoolean(value);
     }
 
     @Override
