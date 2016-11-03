@@ -86,6 +86,10 @@ public class CopeConfigTest {
         assertEquals("value1", keyKey.getValue(0).asString());
         assertEquals("value2", keyKey.getValue(1).asString());
 
+        assertEquals("value1", keyKey.next().asString());
+        assertEquals("value2", keyKey.next().asString());
+        assertEquals("value1", keyKey.next().asString());
+
         assertEquals("value1", keyKey.getValue(0).toString());
 
         assertEquals("0.0.0.0", bindKey.getValue(0).asString());

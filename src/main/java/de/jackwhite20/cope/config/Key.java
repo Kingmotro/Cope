@@ -39,6 +39,11 @@ public class Key {
     private List<Value> values = new ArrayList<>();
 
     /**
+     * The current index for the next method.
+     */
+    private int index = -1;
+
+    /**
      * Creates a new key with the given name.
      *
      * @param name The name of the key.
@@ -87,6 +92,23 @@ public class Key {
     public boolean hasValues() {
 
         return !values.isEmpty();
+    }
+
+    /**
+     * Returns the next value from this key.
+     * If the maximum index is reached, it will start at 0 (the first value) again.
+     *
+     * @return The next value of this key from the current index.
+     */
+    public Value next() {
+
+        index++;
+
+        if (index == values.size()) {
+            index = 0;
+        }
+
+        return values.get(index);
     }
 
     /**
