@@ -112,6 +112,66 @@ public class Key {
     }
 
     /**
+     * Gets the next value and returns it as a string.
+     *
+     * @return The value as a string.
+     */
+    public String nextString() {
+
+        return next().asString();
+    }
+
+    /**
+     * Gets the next value and returns it as an integer.
+     *
+     * @return The value as an integer.
+     */
+    public int nextInt() {
+
+        return next().asInt();
+    }
+
+    /**
+     * Gets the next value and returns it as a long.
+     *
+     * @return The value as a long.
+     */
+    public long nextLong() {
+
+        return next().asLong();
+    }
+
+    /**
+     * Gets the next value and returns it as a double.
+     *
+     * @return The value as a double.
+     */
+    public double nextDouble() {
+
+        return next().asDouble();
+    }
+
+    /**
+     * Gets the next value and returns it as a float.
+     *
+     * @return The value as a float.
+     */
+    public float nextFloat() {
+
+        return next().asFloat();
+    }
+
+    /**
+     * Gets the next value and returns it as a boolean.
+     *
+     * @return The value as a boolean.
+     */
+    public boolean nextBoolean() {
+
+        return next().asBoolean();
+    }
+
+    /**
      * Returns the values as an unmodifiable list.
      *
      * @return The values as an unmodifiable list.

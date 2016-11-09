@@ -84,7 +84,7 @@ public class Value {
      *
      * @return The value as a float.
      */
-    public double asFloat() {
+    public float asFloat() {
 
         return Float.parseFloat(value);
     }
