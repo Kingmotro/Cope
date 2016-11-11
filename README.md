@@ -14,6 +14,26 @@ Cope was designed to be very simple and easy to understand. Look at the examples
 - lightweight
 - fast
 
+# Installation
+
+_Maven:_
+
+- Install [Maven 3](http://maven.apache.org/download.cgi)
+- Clone/Download this repo
+- Install it with: ```mvn clean install```
+
+```xml
+<dependency>
+    <groupId>de.jackwhite20</groupId>
+    <artifactId>cope</artifactId>
+    <version>1.2.0-SNAPSHOT</version>
+</dependency>
+```
+
+_Jar library:_
+
+Simply download the jar from a [release](https://github.com/JackWhite20/Cope/releases) and include it in your project.
+
 # Config format
 
 _Config file config.cop:_
@@ -48,6 +68,8 @@ try {
 		Key maxCon = cope.getHeader("global").getKey("max-con");
 		if (maxCon.hasValues()) {
 			System.out.println("Max connections: " + maxCon.getValue(0).asInt());
+			// Works the same
+			//System.out.println("Max connections: " + maxCon.nextInt());
 		}
 	}
 
@@ -78,6 +100,9 @@ try {
 		if (bindKey.hasValues()) {
 			String host = bindKey.getValue(0).asString();
 			int port = bindKey.getValue(1).asInt();
+			// Works the same
+			//String host = bindKey.nextString();
+			//int port = bindKey.nextInt();
 
 			System.out.println("Host: " + host);
 			System.out.println("Port: " + port);
@@ -111,8 +136,12 @@ try {
 	// No need to check if the header or key exists
 	// because we have the default values
 	Key bindKey = cope.getHeader("server").getKey("bind");
+	
 	String host = bindKey.getValue(0).asString();
 	int port = bindKey.getValue(1).asInt();
+    // Works the same
+    //String host = bindKey.nextString();
+    //int port = bindKey.nextInt();
 
 	System.out.println("Host: " + host);
 	System.out.println("Port: " + port);
@@ -120,26 +149,6 @@ try {
 	e.printStackTrace();
 }
 ```
-
-# Installation
-
-_Maven:_
-
-- Install [Maven 3](http://maven.apache.org/download.cgi)
-- Clone/Download this repo
-- Install it with: ```mvn clean install```
-
-```xml
-<dependency>
-    <groupId>de.jackwhite20</groupId>
-    <artifactId>cope</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-</dependency>
-```
-
-_Jar library:_
-
-Simply download the jar from a [release](https://github.com/JackWhite20/Cope/releases) and include it in your project.
 
 ### License
 
